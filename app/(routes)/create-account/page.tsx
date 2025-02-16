@@ -6,7 +6,7 @@ import AuthButton from "@/components/authButton/AuthButton";
 import { StyledPasswordInfo } from "./createAccount.styles";
 import AuthFooter from "@/components/authFooter/AuthFooter";
 
-export default function page() {
+export default function Page() {
   return (
     <AuthMainContainer
       header="create account"

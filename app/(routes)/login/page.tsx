@@ -5,7 +5,7 @@ import { StyledInput } from "./login.styles";
 import AuthButton from "@/components/authButton/AuthButton";
 import AuthFooter from "@/components/authFooter/AuthFooter";
 
-export default function page() {
+export default function Page() {
   return (
     <AuthMainContainer
       header="login"
