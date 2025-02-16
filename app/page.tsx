@@ -1,3 +1,3 @@
 export default function page() {
-  return <div>Hello World</div>;
+  return <div style={{ fontSize: "30px" }}>Hello World</div>;
 }
