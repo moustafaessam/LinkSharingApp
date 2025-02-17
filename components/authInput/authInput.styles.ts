@@ -2,6 +2,10 @@
 
 import styled from "styled-components";
 
+type StyledInputContainerProps = {
+  iserror: "true" | undefined;
+};
+
 export const StyledLabel = styled.label`
   display: block;
   display: flex;
@@ -17,11 +21,12 @@ export const StyledLabelHeader = styled.p`
   font-size: 1.2rem;
 `;
 
-export const StyledInputContainer = styled.div`
+export const StyledInputContainer = styled.div<StyledInputContainerProps>`
   padding: 1.2rem 1.6rem;
   display: flex;
   gap: 1.2rem;
-  border: 1px solid var(--borders);
+  border: ${(props) =>
+    props.iserror ? "1px solid var(--red)" : "1px solid var(--borders)"};
   min-width: 39.6rem;
   border-radius: 0.8rem;
   align-items: center;

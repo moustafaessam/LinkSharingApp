@@ -5,14 +5,17 @@ import AuthMainContainer, {
   AuthFormInputs,
 } from "@/components/authMainContainer/authMainContainer";
 import React from "react";
-import { StyledInput } from "./login.styles";
+import { StyledError, StyledInput } from "./login.styles";
 import AuthButton from "@/components/authButton/AuthButton";
 import AuthFooter from "@/components/authFooter/AuthFooter";
 import { FormProvider, useForm } from "react-hook-form";
 
 export default function Page() {
   const form = useForm<AuthFormInputs>();
-  const { register } = form;
+  const {
+    register,
+    formState: { errors },
+  } = form;
 
   return (
     <FormProvider {...form}>
@@ -20,17 +23,39 @@ export default function Page() {
         header="login"
         subHeader="Add your details below to get back into the app"
       >
-        <AuthInput header="Email Address" img="/images/icon-email.svg">
+        <AuthInput
+          header="Email Address"
+          img="/images/icon-email.svg"
+          iserror={errors.email?.message ? "true" : undefined}
+        >
           <StyledInput
+            type="email"
             placeholder="e.g. alex@email.com"
-            {...register("email")}
+            {...register("email", {
+              required: { value: true, message: "Can't by empty" },
+            })}
           />
+          {errors.email?.message && (
+            <StyledError>{errors.email.message}</StyledError>
+          )}
         </AuthInput>
-        <AuthInput header="Password" img="/images/icon-password.svg">
+        <AuthInput
+          header="Password"
+          img="/images/icon-password.svg"
+          iserror={errors.password?.message ? "true" : undefined}
+        >
           <StyledInput
+            type="password"
             placeholder="Enter your password"
-            {...register("password")}
+            {...register("password", {
+              required: { value: true, message: "Please check again" },
+              minLength: { value: 8, message: "8 characters at least" },
+              maxLength: { value: 16, message: "16 characters max" },
+            })}
           />
+          {errors.password?.message && (
+            <StyledError>{errors.password.message}</StyledError>
+          )}
         </AuthInput>
         <AuthButton>Login</AuthButton>
         <AuthFooter info="Don't have an account?" linkText="Create account" />

@@ -14,3 +14,10 @@ export const StyledInput = styled.input`
     opacity: 50%;
   }
 `;
+
+export const StyledError = styled.p`
+  color: var(--red);
+  font-family: var(--instrumental-sans-regular);
+  font-size: 1.2rem;
+  line-height: 150%;
+`;
