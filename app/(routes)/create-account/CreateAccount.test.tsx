@@ -71,7 +71,7 @@ describe("CreateAccountPage", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  test("shows confirm password error when input is kept empty", async () => {
+  test("sh ows confirm password error when input is kept empty", async () => {
     render(<Page />);
     const loginButton = screen.getByRole("button", {
       name: /create new account/i,

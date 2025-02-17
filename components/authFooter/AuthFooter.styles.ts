@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import styled from "styled-components";
 
 export const StyledAuthFooterContainer = styled.div`
@@ -19,7 +20,7 @@ export const StyledFooterInfo = styled.p`
   color: var(--grey);
 `;
 
-export const StyledFooterLink = styled.p`
+export const StyledFooterLink = styled(Link)`
   color: var(--purple);
   cursor: pointer;
 `;

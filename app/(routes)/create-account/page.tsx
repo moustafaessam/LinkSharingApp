@@ -84,7 +84,11 @@ export default function Page() {
           Password must contain at least 8 characters
         </StyledPasswordInfo>
         <AuthButton>Create new account</AuthButton>
-        <AuthFooter info="Already have an account?" linkText="Login" />
+        <AuthFooter
+          info="Already have an account?"
+          linkText="Login"
+          path="/login"
+        />
       </AuthMainContainer>
     </FormProvider>
   );

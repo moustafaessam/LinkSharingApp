@@ -8,6 +8,8 @@ import {
   StyledAuthMainContainer,
   StyledAuthMainInnerContainer,
   StyledAuthSubHeader,
+  StyledErrorAuth,
+  StyledHeader,
 } from "./authMainContainer.styles";
 import { useFormContext } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
@@ -18,18 +20,20 @@ type AuthMainContainerProps = {
     | "Add your details below to get back into the app"
     | "Let’s get you started sharing your links!";
   children: React.ReactNode;
+  errorMessge?: string;
 };
 
 export type AuthFormInputs = {
   email: string;
   password: string;
-  confirmPassword?: string;
+  confirmPassword: string;
 };
 
 export default function AuthMainContainer({
   header,
   subHeader,
   children,
+  errorMessge,
 }: AuthMainContainerProps) {
   const { handleSubmit, control } = useFormContext<AuthFormInputs>();
 
@@ -41,9 +45,15 @@ export default function AuthMainContainer({
     <StyledAuthMainContainer>
       <StyledAuthMainInnerContainer>
         <Image src={logo} alt="Logo" />
+
         <StyledAuthForm onSubmit={handleSubmit(onSubmit)}>
-          <StyledAuthHeader>{header}</StyledAuthHeader>
+          <StyledHeader>
+            <StyledAuthHeader>{header}</StyledAuthHeader>
+            <StyledErrorAuth>{errorMessge}</StyledErrorAuth>
+          </StyledHeader>
+
           <StyledAuthSubHeader>{subHeader}</StyledAuthSubHeader>
+
           {children}
           <DevTool control={control} />
         </StyledAuthForm>

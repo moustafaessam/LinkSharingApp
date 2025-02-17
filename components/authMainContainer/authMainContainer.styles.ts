@@ -38,6 +38,21 @@ export const StyledAuthForm = styled.form`
   }
 `;
 
+export const StyledHeader = styled.header`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+`;
+
+export const StyledErrorAuth = styled.p`
+  font-family: var(--instrument-sans-regular);
+  font-size: 1.5rem;
+  color: var(--red);
+  &::first-letter {
+    text-transform: capitalize;
+  }
+`;
+
 export const StyledAuthHeader = styled.h1`
   color: var(--dark-grey);
   font-size: 3.2rem;

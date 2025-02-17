@@ -7,13 +7,14 @@ import {
 type AuthFooter = {
   info: string;
   linkText: string;
+  path: string;
 };
 
-export default function AuthFooter({ info, linkText }: AuthFooter) {
+export default function AuthFooter({ info, linkText, path }: AuthFooter) {
   return (
     <StyledAuthFooterContainer>
       <StyledFooterInfo>{info}</StyledFooterInfo>
-      <StyledFooterLink>{linkText}</StyledFooterLink>
+      <StyledFooterLink href={path}>{linkText}</StyledFooterLink>
     </StyledAuthFooterContainer>
   );
 }
