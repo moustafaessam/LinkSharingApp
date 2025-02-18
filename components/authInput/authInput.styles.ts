@@ -12,6 +12,9 @@ export const StyledLabel = styled.label`
   flex-direction: column;
   gap: 0.4rem;
   margin-bottom: 2.4rem;
+  &:first-of-type {
+    margin-top: 4rem;
+  }
 `;
 
 export const StyledLabelHeader = styled.p`

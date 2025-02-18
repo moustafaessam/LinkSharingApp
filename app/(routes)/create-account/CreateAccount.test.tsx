@@ -2,10 +2,25 @@ import { render, screen } from "@testing-library/react";
 import Page from "./page";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+jest.mock("../../../db/supabase.ts", () => ({
+  supabase: {
+    auth: {
+      signInWithPassword: jest.fn(),
+    },
+  },
+}));
 
 describe("CreateAccountPage", () => {
   test("renders header and subheader correctly", () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     // Check for the main header "create account"
     expect(screen.getByText(/create account/i)).toBeInTheDocument();
     // Check for the subheader text
@@ -15,7 +30,11 @@ describe("CreateAccountPage", () => {
   });
 
   test("renders all AuthInput fields with placeholders", () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     // Check for the Email Address input placeholder
     expect(
       screen.getByPlaceholderText(/e\.g\. alex@email\.com/i)
@@ -31,14 +50,22 @@ describe("CreateAccountPage", () => {
   });
 
   test("renders password info text", () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     expect(
       screen.getByText(/password must contain at least 8 characters/i)
     ).toBeInTheDocument();
   });
 
   test("renders the AuthButton with correct text", () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     // Assuming the button has role "button" and the text "Create new account"
     expect(
       screen.getByRole("button", { name: /create new account/i })
@@ -46,13 +73,21 @@ describe("CreateAccountPage", () => {
   });
 
   test("renders the AuthFooter with info and link text", () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     expect(screen.getByText(/already have an account\?/i)).toBeInTheDocument();
     expect(screen.getByText(/login/i)).toBeInTheDocument();
   });
 
   test("shows email error when input is kept empty", async () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     const loginButton = screen.getByRole("button", {
       name: /create new account/i,
     });
@@ -62,7 +97,11 @@ describe("CreateAccountPage", () => {
   });
 
   test("shows password error when input is kept empty", async () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     const loginButton = screen.getByRole("button", {
       name: /create new account/i,
     });
@@ -72,7 +111,11 @@ describe("CreateAccountPage", () => {
   });
 
   test("sh ows confirm password error when input is kept empty", async () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     const loginButton = screen.getByRole("button", {
       name: /create new account/i,
     });
@@ -82,7 +125,11 @@ describe("CreateAccountPage", () => {
   });
 
   test("shows error message when password is less than 8 characters", async () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     const loginButton = screen.getByRole("button", {
       name: /create new account/i,
     });
@@ -94,7 +141,11 @@ describe("CreateAccountPage", () => {
   });
 
   test("shows error message when password is more than 16 characters", async () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
     const loginButton = screen.getByRole("button", {
       name: /create new account/i,
     });
@@ -106,7 +157,11 @@ describe("CreateAccountPage", () => {
   });
 
   test("displays 'Passwords must match' error when confirm password doesn't match", async () => {
-    render(<Page />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Page />
+      </QueryClientProvider>
+    );
 
     // Find the password and confirm password inputs by their placeholders.
     const passwordInput = screen.getByPlaceholderText(/enter your password/i);

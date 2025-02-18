@@ -49,10 +49,11 @@ export default function AuthMainContainer({
         <StyledAuthForm onSubmit={handleSubmit(onSubmit)}>
           <StyledHeader>
             <StyledAuthHeader>{header}</StyledAuthHeader>
-            <StyledErrorAuth>{errorMessge}</StyledErrorAuth>
+            {/* <StyledErrorAuth>{errorMessge}</StyledErrorAuth> */}
           </StyledHeader>
 
           <StyledAuthSubHeader>{subHeader}</StyledAuthSubHeader>
+          <StyledErrorAuth>{errorMessge}</StyledErrorAuth>
 
           {children}
           <DevTool control={control} />

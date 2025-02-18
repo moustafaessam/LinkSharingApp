@@ -10,6 +10,8 @@ import AuthButton from "@/components/authButton/AuthButton";
 import { StyledPasswordInfo } from "./createAccount.styles";
 import AuthFooter from "@/components/authFooter/AuthFooter";
 import { FormProvider, useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { createAccountWithSupabase } from "@/db/supabaseAuth";
 
 export default function Page() {
   const form = useForm<AuthFormInputs>();
@@ -17,13 +19,28 @@ export default function Page() {
     register,
     watch,
     formState: { errors },
+    getValues,
   } = form;
   const watchedPassword = watch("password");
+
+  const { mutate, isError, error, isSuccess } = useMutation({
+    mutationFn: async (data: AuthFormInputs) => {
+      return await createAccountWithSupabase(data.email, data.password);
+    },
+  });
+
   return (
     <FormProvider {...form}>
       <AuthMainContainer
         header="create account"
         subHeader="Let’s get you started sharing your links!"
+        errorMessge={
+          isError
+            ? `(${error.message})`
+            : isSuccess
+            ? "Please check your email for confirmation"
+            : ""
+        }
       >
         <AuthInput
           header="Email Address"
@@ -83,7 +100,14 @@ export default function Page() {
         <StyledPasswordInfo>
           Password must contain at least 8 characters
         </StyledPasswordInfo>
-        <AuthButton>Create new account</AuthButton>
+        <AuthButton
+          onClick={() => {
+            const values = getValues(); // Get current form values
+            mutate(values); // Call the mutation function
+          }}
+        >
+          Create new account
+        </AuthButton>
         <AuthFooter
           info="Already have an account?"
           linkText="Login"
