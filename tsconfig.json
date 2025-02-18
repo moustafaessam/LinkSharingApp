@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(routes)/login/Login"
+    "app/(routes)/login/Login",
+    "middlewar"
   ],
   "exclude": ["node_modules"]
 }

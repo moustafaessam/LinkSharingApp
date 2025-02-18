@@ -18,12 +18,11 @@ export default function Page() {
   const {
     register,
     watch,
-    formState: { errors },
-    getValues,
+    formState: { errors, isSubmitSuccessful },
   } = form;
   const watchedPassword = watch("password");
 
-  const { mutate, isError, error, isSuccess } = useMutation({
+  const { mutate, isError, error, isSuccess, isPending } = useMutation({
     mutationFn: async (data: AuthFormInputs) => {
       return await createAccountWithSupabase(data.email, data.password);
     },
@@ -35,10 +34,12 @@ export default function Page() {
         header="create account"
         subHeader="Let’s get you started sharing your links!"
         errorMessge={
-          isError
-            ? `(${error.message})`
+          isPending
+            ? "Wait for a second"
             : isSuccess
             ? "Please check your email for confirmation"
+            : isError && isSubmitSuccessful
+            ? `(${error.message})`
             : ""
         }
       >
@@ -101,13 +102,12 @@ export default function Page() {
           Password must contain at least 8 characters
         </StyledPasswordInfo>
         <AuthButton
-          onClick={() => {
-            const values = getValues(); // Get current form values
-            mutate(values); // Call the mutation function
-          }}
+          onClick={form.handleSubmit((values) => mutate(values))}
+          disabled={isPending}
         >
           Create new account
         </AuthButton>
+
         <AuthFooter
           info="Already have an account?"
           linkText="Login"

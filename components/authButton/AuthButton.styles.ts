@@ -20,4 +20,8 @@ export const StyledAuthButton = styled.button`
   &:hover {
     background-color: var(--purple-hover-color);
   }
+  &:disabled {
+    background-color: var(--purple-hover-color);
+    cursor: not-allowed;
+  }
 `;

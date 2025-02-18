@@ -17,12 +17,11 @@ export default function Page() {
   const form = useForm<AuthFormInputs>();
   const {
     register,
-    formState: { errors },
-    getValues,
+    formState: { errors, isSubmitSuccessful },
   } = form;
   const router = useRouter();
 
-  const { mutate, isError, error } = useMutation({
+  const { mutate, isError, error, isPending } = useMutation({
     mutationFn: async (data: AuthFormInputs) => {
       return await signInWithSupabase(data.email, data.password);
     },
@@ -36,7 +35,13 @@ export default function Page() {
       <AuthMainContainer
         header="login"
         subHeader="Add your details below to get back into the app"
-        errorMessge={isError ? `(${error.message})` : ""}
+        errorMessge={
+          isPending
+            ? "Wait for a second"
+            : isError && isSubmitSuccessful
+            ? `(${error.message})`
+            : ""
+        }
       >
         <AuthInput
           header="Email Address"
@@ -74,12 +79,9 @@ export default function Page() {
           )}
         </AuthInput>
 
-        {/* Login Button - Calls mutate with current form values */}
         <AuthButton
-          onClick={() => {
-            const values = getValues(); // Get current form values
-            mutate(values); // Call the mutation function
-          }}
+          onClick={form.handleSubmit((values) => mutate(values))}
+          disabled={isPending}
         >
           Login
         </AuthButton>
