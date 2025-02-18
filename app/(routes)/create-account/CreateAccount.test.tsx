@@ -6,13 +6,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
-jest.mock("../../../db/supabase.ts", () => ({
-  supabase: {
-    auth: {
-      signInWithPassword: jest.fn(),
-    },
-  },
-}));
+// jest.mock("../../../db/supabase.ts", () => ({
+//   supabase: {
+//     auth: {
+//       signInWithPassword: jest.fn(),
+//     },
+//   },
+// }));
 
 describe("CreateAccountPage", () => {
   test("renders header and subheader correctly", () => {
