@@ -20,7 +20,12 @@ export async function createAccountWithSupabase(
     password,
   });
   if (error) {
+    console.log("error is", error);
     throw error;
   }
-  return data;
+  if (data.user?.identities?.length === 0) {
+    return "User already registered. Go to the Login page";
+  } else {
+    return data;
+  }
 }

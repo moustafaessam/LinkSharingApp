@@ -2,30 +2,24 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
-// Middleware function that runs before requests are processed
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
 
-  // Create Supabase client with request context
   const supabase = createMiddlewareClient({ req, res });
 
-  // Get the user's session from Supabase
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // Check if the request is for the home page ("/")
   const isHomePage = req.nextUrl.pathname === "/";
 
-  // If user is not authenticated and is trying to access "/", redirect them to "/login"
   if (isHomePage && !session) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  return res; // Allow the request to proceed
+  return res;
 }
 
-// Define which routes the middleware should apply to
 export const config = {
-  matcher: ["/"], // Apply middleware only to the home page
+  matcher: ["/"],
 };

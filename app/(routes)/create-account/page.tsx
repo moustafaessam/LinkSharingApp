@@ -22,12 +22,11 @@ export default function Page() {
   } = form;
   const watchedPassword = watch("password");
 
-  const { mutate, isError, error, isSuccess, isPending } = useMutation({
+  const { mutate, isError, error, isSuccess, isPending, data } = useMutation({
     mutationFn: async (data: AuthFormInputs) => {
       return await createAccountWithSupabase(data.email, data.password);
     },
   });
-
   return (
     <FormProvider {...form}>
       <AuthMainContainer
@@ -36,6 +35,9 @@ export default function Page() {
         errorMessge={
           isPending
             ? "Wait for a second"
+            : isSuccess &&
+              data === "User already registered. Go to the Login page"
+            ? "User already registered. Go to the Login page"
             : isSuccess
             ? "Please check your email for confirmation"
             : isError && isSubmitSuccessful
