@@ -1,3 +1,11 @@
-export default function ProfileDetailsContainer() {
-  return <div></div>;
+import { StyledProfileDetailsMainContainer } from "./ProfileDetailsContainer.styles";
+
+type ProfileDetailsContainerProps = {
+  children:React.ReactNode;
+}
+
+export default function ProfileDetailsContainer({children}: ProfileDetailsContainerProps) {
+  return (
+    <StyledProfileDetailsMainContainer>{children}</StyledProfileDetailsMainContainer>
+  );
 }
