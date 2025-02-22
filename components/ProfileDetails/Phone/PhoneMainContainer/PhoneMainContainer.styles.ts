@@ -4,7 +4,6 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export const StyledPhoneMainContainer = styled.section`
-  border: 1px solid green;
   background-color: var(--white);
   max-width: 56rem;
   width: 100%;
@@ -12,6 +11,7 @@ export const StyledPhoneMainContainer = styled.section`
   align-items: center;
   justify-content: center;
   padding: 2.4rem;
+  border-radius: 1.2rem;
   @media (max-width: 1100px) {
     display: none;
   }
@@ -35,17 +35,6 @@ export const StyledPhoneInnerBorderImage = styled(Image)`
   left: 11px;
 `;
 
-// export const StyledPhoneInnerBorder = styled.div`
-//   border: 1px solid var(--grey);
-//   border-radius: 4.5rem;
-//   max-width: 28.5rem;
-//   width: 100%;
-//   height: 61.1rem;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `;
-
 export const StyledPhoneInnerDetailsContainer = styled.div`
   position: relative;
   z-index: 1;
@@ -54,5 +43,16 @@ export const StyledPhoneInnerDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5.6rem;
-  border: 1px solid red;
+  height: 51.6rem;
+  overflow-x: scroll;
+  /* Hide scrollbar for WebKit-based browsers (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+
+  /* Hide scrollbar for IE, Edge */
+  -ms-overflow-style: none;
 `;

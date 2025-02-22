@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/(routes)/login/Login",
-    "middlewar"
+    "middlewar",
+    "components/ProfileDetails/Profile Details/ProfileDetailsModificationContainer/ProfileDetailsForm/ProfileDetailsForm.test.tsxqwesrdvqewfg"
   ],
   "exclude": ["node_modules"]
 }

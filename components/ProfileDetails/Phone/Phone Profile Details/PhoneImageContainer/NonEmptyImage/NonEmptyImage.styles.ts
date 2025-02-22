@@ -13,4 +13,5 @@ export const StyledImageContainer = styled.div`
 export const StyledImage = styled.img`
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 `;
