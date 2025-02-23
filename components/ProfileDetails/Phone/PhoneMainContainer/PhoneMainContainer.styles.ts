@@ -8,7 +8,6 @@ export const StyledPhoneMainContainer = styled.section`
   max-width: 56rem;
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   padding: 2.4rem;
   border-radius: 1.2rem;
@@ -24,9 +23,9 @@ export const StyledPhoneOuterBorder = styled.div`
   width: 100%;
   height: 63.1rem;
   display: flex;
-  align-items: center;
   justify-content: center;
   position: relative;
+  align-items: center;
 `;
 
 export const StyledPhoneInnerBorderImage = styled(Image)`
