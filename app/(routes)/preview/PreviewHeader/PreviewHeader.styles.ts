@@ -8,5 +8,6 @@ export const StyledHeaderHalfPurpleBackground = styled.div`
   border-radius: 0 0 3.2rem 3.2rem;
   @media (max-width: 640px) {
     background-color: inherit;
+    height: fit-content;
   }
 `;

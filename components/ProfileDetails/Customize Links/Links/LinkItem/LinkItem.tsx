@@ -2,6 +2,7 @@
 
 import {
   StyledContainer,
+  StyledError,
   StyledHeaderContainer,
   StyledImg,
   StyledInput,
@@ -18,12 +19,15 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { CounterType } from "../../CustomizeLinksContainer/CustomizsLinksContainer";
 import { Dispatch, SetStateAction } from "react";
+import { useFormContext } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createClient } from "@/utils/supabase/client";
 
 const SelectItem = dynamic(() => import("./SelectItem/SelectItem"), {
   ssr: false,
 });
 
-type LinkItem = {
+type LinkItemProps = {
   id: string;
   counter: CounterType;
   setCounter: Dispatch<SetStateAction<CounterType>>;
@@ -32,10 +36,44 @@ type LinkItem = {
 
 export default function LinkItem({
   id,
-  counter,
   setCounter,
   position,
-}: LinkItem) {
+  counter,
+}: LinkItemProps) {
+  const queryClient = useQueryClient();
+  const supabase = createClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (sessionError) throw sessionError;
+      const userId = session?.user?.id;
+      if (!userId) throw new Error("User not authenticated");
+
+      const { error: deleteError } = await supabase
+        .from("links")
+        .delete()
+        .eq("user_id", userId);
+
+      if (deleteError) throw new Error(`Delete error: ${deleteError.message}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["userLinks"] });
+    },
+  });
+
+  const {
+    register,
+    watch,
+    formState: { errors },
+    unregister,
+    getValues,
+  } = useFormContext();
+
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -45,10 +83,31 @@ export default function LinkItem({
   };
 
   const handleRemoveLink = () => {
-    if (counter.length > 0) {
-      setCounter(counter.slice(0, -1));
+    // 🔑 Unregister form fields BEFORE updating counter
+    unregister(`select-${id}`);
+    unregister(`link-${id}`);
+    if (counter.length <= 1) {
+      mutate();
     }
+    // ✅ Remove the clicked item from counter
+    setCounter((prev) => prev.filter((linkId) => linkId !== id));
   };
+
+  const watchSelect = watch(`select-${id}`)?.value;
+
+  const values = getValues();
+
+  const selectedPlatformsStage1 = Object.entries(values).filter(([key]) =>
+    key.startsWith("select-")
+  );
+
+  const selectedPlatformsStage2 = selectedPlatformsStage1.map((platforms) => {
+    return platforms?.[1]?.value;
+  });
+
+  const occurrenceCount = selectedPlatformsStage2.filter(
+    (platform) => platform === watchSelect
+  ).length;
 
   return (
     <StyledContainer ref={setNodeRef} style={style}>
@@ -64,18 +123,47 @@ export default function LinkItem({
         </div>
         <StyledRemove onClick={handleRemoveLink}>Remove</StyledRemove>
       </StyledHeaderContainer>
+
       <StyledLabel>
         Platform
-        <SelectItem />
+        <SelectItem id={id} />
       </StyledLabel>
-      <StyledLabel htmlFor="links">
+
+      <StyledLabel htmlFor={`link-${id}`}>
         Link
         <StyledInputContainer>
           <StyledLinkImage src={linkImg} alt="link" />
           <StyledInput
-            placeholder="e.g https://www.example.com/moustafaEssam"
-            id="links"
+            placeholder={
+              watchSelect
+                ? `e.g https://www.${watchSelect}.com/john`
+                : "e.g https://www.platform.com/john"
+            }
+            id={`link-${id}`}
+            {...register(`link-${id}`, {
+              required: { value: true, message: "Can't be empty" },
+              validate: {
+                urlValidation: (fieldValue) => {
+                  if (!watchSelect) return "Select a platform first";
+                  const regex = new RegExp(
+                    `^https:\/\/(www\\.)?${watchSelect.toLowerCase()}\\.com\\/[A-Za-z0-9_-]+\\/?$`
+                  );
+                  return (
+                    regex.test(fieldValue.toLowerCase()) ||
+                    "Please check the URL"
+                  );
+                },
+                plaformAlreadySelected: () => {
+                  return occurrenceCount > 1
+                    ? "This platform has already been selected."
+                    : true;
+                },
+              },
+            })}
           />
+          {errors?.[`link-${id}`]?.message && (
+            <StyledError>{errors[`link-${id}`]?.message as string}</StyledError>
+          )}
         </StyledInputContainer>
       </StyledLabel>
     </StyledContainer>

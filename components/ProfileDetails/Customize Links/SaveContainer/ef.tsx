@@ -4,7 +4,7 @@ import SaveContainer from "./SaveContainer";
 
 describe("Add New Link Button", () => {
   test("Button Render", () => {
-    render(<SaveContainer />);
+    render(<SaveContainer counter={[]} />);
     const button = screen.getByRole("button", { name: /save/i });
     expect(button).toBeInTheDocument();
   });

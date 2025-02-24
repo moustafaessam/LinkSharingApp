@@ -58,6 +58,10 @@ export const StyledInputContainer = styled.div`
   &:has(input:focus) {
     box-shadow: 0 0 5px 0 var(--purple);
   }
+  &:has(p) {
+    box-shadow: none !important;
+    border: 1px solid var(--red) !important;
+  }
 `;
 
 export const StyledLinkImage = styled(Image)``;
@@ -74,4 +78,15 @@ export const StyledInput = styled.input`
   &::placeholder {
     opacity: 50%;
   }
+`;
+
+export const StyledError = styled.p`
+  color: var(--red);
+  font-family: var(--instrument-sans-regular);
+  font-size: 1.2rem;
+  line-height: 150%;
+  color: var(--red);
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
 `;

@@ -3,7 +3,6 @@
 import { StyledProfileContainer } from "./ProfileDetails.styles";
 import ProfileDetailsModificationContainer from "../ProfileDetailsModificationContainer/ProfileDetailsMain/ProfileDetailsModificationContainer";
 import { FormProvider, useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 import ProfileDetailsSaveContainer from "../ProfileDetailsSaveContainer/ProfileDetailsSaveContainer";
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@/utils/supabase/client";
@@ -34,7 +33,7 @@ export default function ProfileDetails() {
     },
   });
 
-  const { control, handleSubmit, reset } = form;
+  const { handleSubmit, reset } = form;
 
   useEffect(() => {
     if (data) {
@@ -57,7 +56,6 @@ export default function ProfileDetails() {
       <StyledProfileContainer onSubmit={handleSubmit(onSubmit)}>
         <ProfileDetailsModificationContainer />
         <ProfileDetailsSaveContainer />
-        <DevTool control={control} />
       </StyledProfileContainer>
     </FormProvider>
   );

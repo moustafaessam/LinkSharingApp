@@ -23,13 +23,14 @@ export default function LinksContainer({
       setCounter((prev) => arrayMove(prev, oldIndex, newIndex));
     }
   };
+
   return (
     <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
       <SortableContext items={counter}>
         <StyledContainer>
           {counter.map((id, index) => (
             <LinkItem
-              key={id}
+              key={`${id}-${index}`}
               id={id}
               position={index + 1}
               counter={counter}

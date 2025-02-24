@@ -26,7 +26,7 @@ export default function Page() {
       return await signInWithSupabase(data.email, data.password);
     },
     onSuccess: () => {
-      router.push("/");
+      router.push("/links");
     },
   });
 

@@ -12,7 +12,6 @@ import {
   StyledHeader,
 } from "./authMainContainer.styles";
 import { useFormContext } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 
 type AuthMainContainerProps = {
   header: "login" | "create account";
@@ -35,10 +34,10 @@ export default function AuthMainContainer({
   children,
   errorMessge,
 }: AuthMainContainerProps) {
-  const { handleSubmit, control } = useFormContext<AuthFormInputs>();
+  const { handleSubmit } = useFormContext<AuthFormInputs>();
 
   function onSubmit(data: AuthFormInputs) {
-    console.log(data);
+    return data;
   }
 
   return (
@@ -56,7 +55,6 @@ export default function AuthMainContainer({
           <StyledErrorAuth>{errorMessge}</StyledErrorAuth>
 
           {children}
-          <DevTool control={control} />
         </StyledAuthForm>
       </StyledAuthMainInnerContainer>
     </StyledAuthMainContainer>

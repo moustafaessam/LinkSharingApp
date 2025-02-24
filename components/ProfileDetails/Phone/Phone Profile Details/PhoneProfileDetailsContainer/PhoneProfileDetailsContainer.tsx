@@ -10,8 +10,6 @@ import PhoneNameNotEmpty from "../PhoneNameContainer/PhoneNameNotEmpty/PhoneName
 import PhoneEmailNotEmpty from "../PhoneEmailContainer/PhoneEmailNotEmpty/PhoneEmailNotEmpty";
 import NonEmptyImage from "../PhoneImageContainer/NonEmptyImage/NonEmptyImage";
 
-// Here were we going to fetch the phone profile details
-
 export default function PhoneProfileDetailsContainer() {
   const supabase = createClient();
   const { data } = useQuery({
