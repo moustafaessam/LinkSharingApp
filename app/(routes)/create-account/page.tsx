@@ -12,6 +12,7 @@ import AuthFooter from "@/components/authFooter/AuthFooter";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { createAccountWithSupabase } from "@/db/supabaseAuth";
+import { useRouter } from "next/router";
 
 export default function Page() {
   const form = useForm<AuthFormInputs>();
@@ -21,10 +22,14 @@ export default function Page() {
     formState: { errors, isSubmitSuccessful },
   } = form;
   const watchedPassword = watch("password");
+  const router = useRouter();
 
   const { mutate, isError, error, isSuccess, isPending, data } = useMutation({
     mutationFn: async (data: AuthFormInputs) => {
       return await createAccountWithSupabase(data.email, data.password);
+    },
+    onSuccess: () => {
+      router.push("/login");
     },
   });
   return (

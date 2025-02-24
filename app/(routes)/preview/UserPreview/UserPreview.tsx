@@ -46,8 +46,8 @@ export default function UserPreview() {
     staleTime: 0,
   });
 
-  const name = data?.[0].name;
-  const email = data?.[0].email;
+  const name = data?.[0]?.name;
+  const email = data?.[0]?.email;
 
   const { data: latestImage } = useQuery({
     queryKey: ["latestImage"],

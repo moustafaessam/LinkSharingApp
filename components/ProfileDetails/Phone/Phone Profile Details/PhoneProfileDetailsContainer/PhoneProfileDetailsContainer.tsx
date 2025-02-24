@@ -40,8 +40,8 @@ export default function PhoneProfileDetailsContainer() {
       return urlData.publicUrl;
     },
   });
-  const name = data?.[0].name;
-  const email = data?.[0].email;
+  const name = data?.[0]?.name;
+  const email = data?.[0]?.email;
   return (
     <StyledProfileDetailsContainer>
       {latestImage ? <NonEmptyImage imgSrc={latestImage} /> : <EmptyImage />}
