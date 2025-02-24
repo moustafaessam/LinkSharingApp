@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Link Sharing App
 
-## Getting Started
+## 🚀 Overview
 
-First, run the development server:
+**Link Sharing App** is a full-stack web application that allows users to create, manage, and share their personalized links built using next.js.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Protected Routes:** All routes (login, create-account, links, profile-details) are protected except the **preview** route, which allows public viewing of a user’s shared links and details.
+- **Live Demo:** Visit [www.moustafa.com](https://www.moustafa.com) to see it live.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🔑 **User Authentication & Authorization:** Secure login and account creation via Supabase.
+- 📝 **Link Management:**
+  - Create, read, update, and delete links.
+  - Reorder links via drag and drop.
+  - Real-time link previews in a mobile mockup.
+  - Form validations for empty fields or incorrect URL patterns.
+- 👤 **Profile Management:**
+  - Add profile details (profile picture, first name, last name, email).
+  - Receive form validations for missing first or last names.
+- 📄 **Public Preview & Sharing:**
+  - Preview the user’s profile and copy the preview link to the clipboard.
+  - Public users can view shared links without logging in.
+- 📱 **Responsive Design:** Optimal layout adjustments for all device sizes.
+- 🖱️ **Interactive UI:** Hover and focus states for all interactive elements.
+- 💾 **Database Integration:**
+  - Save profile and link details to a Supabase database.
+  - Utilize foreign keys and table joins for efficient data relations.
+- 🧩 **Bonus Features:**
+  - Full-stack implementation with Supabase backend.
+  - Authentication and protected routes for enhanced security.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧩 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend:** React, TypeScript, Next.js
+- **Backend & Database:** Supabase (Authentication, Storage, Database)
+- **State Management:** React Query
+- **Styling:** Styled Components
+- **Forms & Validations:** React Hook Form, React Select
+- **Drag & Drop:** React DnD Kit
+- **Testing:** Jest, React Testing Library, User Events, Mocking
+- **Middleware:** Next.js Middleware for route protection and session management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🚀 Getting Started
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone the Repository:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the website on your device**
+
+   ```bash
+   npm run dev
+   ```
