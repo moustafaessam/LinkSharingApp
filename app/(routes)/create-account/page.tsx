@@ -12,7 +12,7 @@ import AuthFooter from "@/components/authFooter/AuthFooter";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { createAccountWithSupabase } from "@/db/supabaseAuth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const form = useForm<AuthFormInputs>();
